@@ -13,25 +13,19 @@ public class firstAutomation {
 
     @BeforeMethod
     public void openWebsite() {
-        driver.navigate().to("https://the-internet.herokuapp.com/");
-        driver.findElement( By.linkText("Form Authentication")).click();
+        driver.navigate().to("https://ecommerce-playground.lambdatest.io/index.php?route=common/home");
     }
 
 
 
     @Test(priority = 1)
     public void validLogin() {
-        driver.findElement(By.id("username")).sendKeys("tomsmith");
-        driver.findElement(By.id("password")).sendKeys("SuperSecretPassword!");
-        driver.findElement(By.className("radius")).click();
-        String URL = driver.getCurrentUrl();
-        if (URL.contains("https://the-internet.herokuapp.com/secure")) {
-            System.out.println("valid Test Passed");
-            // driver.findElement(By.className("radius")).click();
-            driver.findElement(By.cssSelector(".button.secondary.radius")).click();
-        } else {
-            System.out.println("valid Test Failed");
-        }
+      if((driver.getCurrentUrl() ).contains("https://ecommerce-playground.lambdatest.io/index.php?route=common/home") ){
+
+          System.out.println("Lambda opened successfully");
+      } else {
+          System.out.println("Lambda not opened ");
+      }
     }
 
 
