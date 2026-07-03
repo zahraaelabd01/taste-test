@@ -18,16 +18,12 @@ public class BaseTest {
     protected LoginPage loginPage;
     protected RegisterPage registerPage;
     protected MyAccountPage myAccountPage;
-    @BeforeClass
+    @BeforeMethod
     public void setUp() {
         driver = new FirefoxDriver();
         homePage=new HomePage(driver);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         driver.manage().window().maximize();
-    }
-
-    @BeforeMethod
-    public void goHome() {
         driver.get("https://ecommerce-playground.lambdatest.io/");
     }
 
@@ -36,5 +32,6 @@ public class BaseTest {
         if (driver != null) {
             driver.quit();
         }
+
     }
 }

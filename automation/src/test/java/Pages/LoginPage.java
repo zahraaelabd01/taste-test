@@ -12,8 +12,8 @@ public class LoginPage {
     By LoginButton=By.xpath("//input[@value=\"Login\"]");
     By ForgottenPass=By.xpath("//div[@class=\"form-group\"]/a");
     By ActualErrorMsg=By.cssSelector(".alert.alert-danger.alert-dismissible");
-    String ExpErrorMsg=" Warning: No match for E-Mail Address and/or Password.";
-
+    String ExpErrorMsg="Warning: No match for E-Mail Address and/or Password.";
+    String ExpAccLimitErrorMsg="Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.";
     public LoginPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -35,10 +35,12 @@ public class LoginPage {
     }
 
     public void setEmail(String email) {
+        driver.findElement(Email).clear();
         driver.findElement(Email).sendKeys(email);
     }
 
     public void setPassword(String  password) {
+        driver.findElement(Password).clear();
         driver.findElement(Password).sendKeys(password);
     }
     public MyAccountPage LoginClick(){
@@ -48,5 +50,9 @@ public class LoginPage {
     public ForgottenPassPage ForgetClick(){
         driver.findElement(ForgottenPass).click();
         return new ForgottenPassPage(driver);
+    }
+
+    public String getExpAccLimitErrorMsg() {
+        return ExpAccLimitErrorMsg;
     }
 }
