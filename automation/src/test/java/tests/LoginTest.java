@@ -1,11 +1,9 @@
 package tests;
-
-import Pages.HomePage;
-import Pages.LoginPage;
 import lambdatest.BaseTest.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 public class LoginTest extends BaseTest {
     @BeforeMethod
@@ -13,15 +11,16 @@ public class LoginTest extends BaseTest {
         loginPage = homePage.MyAccountClick();
         Assert.assertEquals(loginPage.getExpTitle(),loginPage.getActualTitle());
         System.out.println("Login Page Opened");
+        System.out.println("************************");
     }
     @Test
     public void ValidLoginTest(){
-
         loginPage.setEmail("testhabeeba008@gmail.com");
         System.out.println("Email Done");
         loginPage.setPassword("1234");
         System.out.println("Pass Done");
         myAccountPage=loginPage.LoginClick();
+        System.out.println("---Valid Login Test pass---");
         System.out.println("*******************************");
     }
     @Test
@@ -32,7 +31,7 @@ public class LoginTest extends BaseTest {
         System.out.println("Invalid Pass Done");
         myAccountPage=loginPage.LoginClick();
         Assert.assertEquals(loginPage.getActualErrorMsg(),loginPage.getExpErrorMsg());
-        System.out.println("Test pass");
+        System.out.println("---InValid Login Test pass---");
         System.out.println("*******************************");
     }
     @Test
@@ -45,9 +44,20 @@ public class LoginTest extends BaseTest {
         loginPage.setEmail("testhabeeba@gmail.com");
         loginPage.setPassword("1234");
         myAccountPage=loginPage.LoginClick();
-        Assert.assertEquals(loginPage.getExpAccLimitErrorMsg(),loginPage.getActualErrorMsg());
-
+        Assert.assertEquals(loginPage.getActualErrorMsg(),loginPage.getExpAccLimitErrorMsg());
+        System.out.println("---accountLock Test pass---");
+        System.out.println("*******************************");
     }
-
+    @Test(enabled = false ,description ="Bug: Empty fields are triggering the Account Limit error!" )
+    public void EmptyFieldTest(){
+        SoftAssert softAssert = new SoftAssert();
+        loginPage.setEmail("");
+        loginPage.setPassword("");
+        myAccountPage=loginPage.LoginClick();
+        softAssert.assertEquals(loginPage.getActualErrorMsg(),loginPage.getExpEmptyFieldErrorMsg(),"Bug: Empty fields are triggering the Account Limit error!");
+        softAssert.assertAll();
+        System.out.println("---EmptyField Test pass---");
+        System.out.println("*******************************");
+    }
 
 }

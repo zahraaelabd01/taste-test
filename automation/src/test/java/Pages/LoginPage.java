@@ -14,6 +14,7 @@ public class LoginPage {
     By ActualErrorMsg=By.cssSelector(".alert.alert-danger.alert-dismissible");
     String ExpErrorMsg="Warning: No match for E-Mail Address and/or Password.";
     String ExpAccLimitErrorMsg="Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.";
+    String ExpEmptyFieldErrorMsg= "Email address or password field can't be empty";
     public LoginPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -54,5 +55,9 @@ public class LoginPage {
 
     public String getExpAccLimitErrorMsg() {
         return ExpAccLimitErrorMsg;
+    }
+
+    public String getExpEmptyFieldErrorMsg() {
+        return ExpEmptyFieldErrorMsg;
     }
 }
