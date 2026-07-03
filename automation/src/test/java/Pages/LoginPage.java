@@ -12,7 +12,7 @@ public class LoginPage {
     By LoginButton=By.xpath("//input[@value=\"Login\"]");
     By ForgottenPass=By.xpath("//div[@class=\"form-group\"]/a");
     By ActualErrorMsg=By.cssSelector(".alert.alert-danger.alert-dismissible");
-    String ExpErrormsg=" Warning: No match for E-Mail Address and/or Password.";
+    String ExpErrorMsg=" Warning: No match for E-Mail Address and/or Password.";
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
@@ -22,8 +22,8 @@ public class LoginPage {
         return ExpectedTitle;
     }
 
-    public String getExpErrormsg() {
-        return ExpErrormsg;
+    public String getExpErrorMsg() {
+        return ExpErrorMsg;
     }
 
     public String getActualErrorMsg() {
@@ -40,5 +40,13 @@ public class LoginPage {
 
     public void setPassword(String  password) {
         driver.findElement(Password).sendKeys(password);
+    }
+    public MyAccountPage LoginClick(){
+        driver.findElement(LoginButton).click();
+        return new MyAccountPage(driver);
+    }
+    public ForgottenPassPage ForgetClick(){
+        driver.findElement(ForgottenPass).click();
+        return new ForgottenPassPage(driver);
     }
 }
