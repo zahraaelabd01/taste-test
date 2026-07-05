@@ -65,7 +65,7 @@ public class CartPage {
     private WebElement waitForVisibleTile(String productName) {
         By locator = productTileByName(productName);
         wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-        return driver.findElements(locator).getFirst();
+        return driver.findElements(locator).get(0);
     }
 
 
@@ -88,7 +88,7 @@ public class CartPage {
             } catch (Exception ignored) {
                 // Best-effort hover only; the JS click below works regardless of hover state.
             }
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", addBtns.getFirst());
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", addBtns.get(0));
             try {
                 wait.until(d -> getHeaderCartItemCount() != before);
                 return; // success
@@ -199,7 +199,7 @@ public class CartPage {
                 return el.getText().trim();
             }
         }
-        return triggers.isEmpty() ? "" : triggers.getFirst().getText().trim();
+        return triggers.isEmpty() ? "" : triggers.get(0).getText().trim();
     }
 
     public int getHeaderCartItemCount() {
@@ -239,7 +239,7 @@ public class CartPage {
     public void removeProduct(String productName) {
         List<WebElement> removeBtns = rowForProduct(productName).findElements(removeButtonInRow);
         if (!removeBtns.isEmpty()) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", removeBtns.getFirst());
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", removeBtns.get(0));
         } else {
             // No dedicated remove control on this row (some layouts only show +/- steppers) —
             // setting quantity to 0 is OpenCart's standard way of treating this as a removal.
@@ -260,7 +260,7 @@ public class CartPage {
         qtyInput.sendKeys(Keys.ENTER);
         List<WebElement> updateBtn = row.findElements(updateButtonInRow);
         if (!updateBtn.isEmpty()) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", updateBtn.getFirst());
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", updateBtn.get(0));
         }
     }
 

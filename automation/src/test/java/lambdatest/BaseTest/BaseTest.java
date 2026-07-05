@@ -1,6 +1,6 @@
 package BaseTest;
 
-import Pages.CartPage;
+import Pages.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -11,14 +11,21 @@ public class BaseTest {
 
     protected WebDriver driver;
     protected CartPage cartPage;
+    protected ProductPage productPage;
+    protected HomePage homePage ;
+    protected LoginPage loginPage ;
+    protected MyAccountPage myAccountPage;
+
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*", "--start-maximized");
+
+        options.addArguments("--start-maximized");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+
         driver = new ChromeDriver(options);
-        cartPage = new CartPage(driver);
-        cartPage.openHome();
     }
 
     @AfterMethod(alwaysRun = true)
