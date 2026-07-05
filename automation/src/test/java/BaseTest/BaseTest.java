@@ -15,7 +15,6 @@ public class BaseTest {
     protected HomePage homePage ;
     protected LoginPage loginPage ;
     protected MyAccountPage myAccountPage;
-    protected CheckoutPage checkoutPage;
 
 
     @BeforeMethod(alwaysRun = true)
@@ -27,7 +26,6 @@ public class BaseTest {
         options.addArguments("--disable-dev-shm-usage");
 
         driver = new ChromeDriver(options);
-        checkoutPage = new CheckoutPage(driver);
     }
 
     @AfterMethod(alwaysRun = true)

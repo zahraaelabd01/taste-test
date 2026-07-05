@@ -11,6 +11,8 @@ public class ProductPage {
         this.driver = driver;
     }
 
-
+    public boolean isProductListDisplayed() {
+        return !driver.findElements(By.cssSelector(".product-layout")).isEmpty();
+    }
 
 }
