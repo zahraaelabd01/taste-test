@@ -1,38 +1,30 @@
-package lambdatest.BaseTest;
+package BaseTest;
 
-import Pages.HomePage;
-import Pages.LoginPage;
-import Pages.MyAccountPage;
-import Pages.RegisterPage;
+import Pages.CartPage;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterClass;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import java.time.Duration;
 
 public class BaseTest {
 
     protected WebDriver driver;
-    protected HomePage homePage;
-    protected LoginPage loginPage;
-    protected RegisterPage registerPage;
-    protected MyAccountPage myAccountPage;
-    @BeforeMethod
+    protected CartPage cartPage;
+
+    @BeforeMethod(alwaysRun = true)
     public void setUp() {
-        driver = new FirefoxDriver();
-        homePage=new HomePage(driver);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-        driver.manage().window().maximize();
-        driver.get("https://ecommerce-playground.lambdatest.io/");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*", "--start-maximized");
+        driver = new ChromeDriver(options);
+        cartPage = new CartPage(driver);
+        cartPage.openHome();
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void tearDown() {
         if (driver != null) {
             driver.quit();
         }
-
     }
 }
