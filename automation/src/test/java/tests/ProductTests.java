@@ -10,7 +10,7 @@ public class ProductTests extends BaseTest {
     @Test
     public void testNavigateToAppleProducts() {
         driver.get("https://ecommerce-playground.lambdatest.io/");
-        HomePage homePage = new HomePage(driver);
+        HomePage homePage = new HomePage(driver); // Initialize HomePage with the driver
 
         ProductPage productPage = homePage.navigateToMegaMenuProduct("Apple");
 
