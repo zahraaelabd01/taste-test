@@ -1,4 +1,4 @@
-package tests;
+package tests.AuthTest;
 import BaseTest.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
