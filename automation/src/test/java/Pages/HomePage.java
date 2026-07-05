@@ -13,7 +13,7 @@ public class HomePage {
     private WebDriverWait wait;
     By register = By.xpath("//div//a[text()=\"Continue\"]");
     By MyAccount= By.xpath("//div[@id='widget-navbar-217834']//a[normalize-space()='My account']");
-    By MegaMenu= By.cssSelector("icon-left.both.nav-link.dropdown-toggle");
+    By megaMenuLocator= By.xpath("//a[normalize-space()='Mega Menu']");
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
@@ -30,17 +30,24 @@ public class HomePage {
         return new RegisterPage(driver);
     }
 
-    public void navigateToMegaMenuProduct(String subPageName) {
-        // 1. Locate and hover over the Mega Menu parent
-        WebElement megaMenu = wait.until(ExpectedConditions.visibilityOfElementLocated(MegaMenu));
-        Actions actions = new Actions(driver);
-        actions.moveToElement(megaMenu).perform();
+    public ProductPage navigateToMegaMenuProduct(String subPageName) {
+        WebElement megaMenu = wait.until(ExpectedConditions.visibilityOfElementLocated(megaMenuLocator));
+        new Actions(driver).moveToElement(megaMenu).pause(Duration.ofMillis(300)).perform();
 
-        // 2. Dynamically build the locator using the page name you passed in
-        String dynamicXpath = String.format("//ul[contains(@class, 'dropdown-menu')]//a[text()='%s']", subPageName);
-        WebElement targetLink = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(dynamicXpath)));
+        String dynamicXpath = String.format(
+                "//ul[contains(@class,'mega-menu-content')]//a[normalize-space()='%s']", subPageName);
 
-        // 3. Click the page
+        WebElement targetLink;
+        try {
+            targetLink = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(dynamicXpath)));
+        } catch (org.openqa.selenium.TimeoutException e) {
+            // JS fallback if native hover didn't register
+            ((org.openqa.selenium.JavascriptExecutor) driver).executeScript(
+                    "arguments[0].dispatchEvent(new MouseEvent('mouseover', {bubbles:true}));", megaMenu);
+            targetLink = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(dynamicXpath)));
+        }
+
         targetLink.click();
+        return new ProductPage(driver);
     }
 }
