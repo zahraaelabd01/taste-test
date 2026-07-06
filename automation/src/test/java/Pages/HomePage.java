@@ -13,9 +13,8 @@ import java.time.Duration;
 public class HomePage {
     WebDriver driver;
     private WebDriverWait wait;
-    //By register = By.xpath("//div//a[text()=\"Continue\"]");
     By register = By.xpath("//a[contains(@href,\"account/register\")]");
-    By MyAccount= By.xpath("//div[@id='widget-navbar-217834']//a[normalize-space()='My account']");
+    By MyAccount= By.xpath("//a[contains(@class, 'dropdown-toggle') and contains(., 'My account')]");
     By megaMenuLocator= By.xpath("//a[normalize-space()='Mega Menu']");
 
     public HomePage(WebDriver driver) {
@@ -28,10 +27,11 @@ public class HomePage {
         return new LoginPage(driver);
     }
     public RegisterPage RegisterClick(){
-        WebElement MyAccountDropdown= driver.findElement(MyAccount);
+        WebElement MyAccountDropdown= wait.until(ExpectedConditions.visibilityOfElementLocated(MyAccount));
         Actions action = new Actions(driver);
         action.moveToElement(MyAccountDropdown).perform();
-        driver.findElement(register).click();
+        WebElement registerLinkElement = wait.until(ExpectedConditions.visibilityOfElementLocated(register));
+        registerLinkElement.click();
         return new RegisterPage(driver);
     }
 

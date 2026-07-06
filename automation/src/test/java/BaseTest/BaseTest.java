@@ -24,12 +24,13 @@ public class BaseTest {
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
-
         options.addArguments("--start-maximized");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
 
         driver = new ChromeDriver(options);
+        driver.get("https://ecommerce-playground.lambdatest.io/");
+        homePage=new HomePage(driver);
     }
 
     @AfterMethod(alwaysRun = true)
