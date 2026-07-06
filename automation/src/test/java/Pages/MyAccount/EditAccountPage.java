@@ -1,0 +1,91 @@
+package Pages.MyAccount;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+public class EditAccountPage {
+    WebDriver driver;
+    By ActualTitle = By.cssSelector(".page-title.h3.mb-3");
+    String ExpectedTitle = "My Account Information";
+    By FName = By.xpath("//input[@name=\"firstname\"]");
+    By LName = By.xpath("//input[@name=\"lastname\"]");
+    By Email = By.id("input-email");
+    By Telephone = By.id("input-telephone");
+    By ContinueBtn = By.xpath("//input[@value=\"Continue\"]");
+    By BackBtn = By.xpath("//a[text()=\" Back\"]");
+    By FNameErrorMsg = By.xpath("//div[contains(text(),\"First Name\")]");
+    String ExpFNameErrorMsg = "First Name must be between 1 and 32 characters!";
+    By LNameErrorMsg = By.xpath("//div[contains(text(),\"Last Name\")]");
+    String ExpSNameErrorMsg = "Last Name must be between 1 and 32 characters!";
+    By EmailErrorMsg = By.xpath("//div[contains(text(),\"E-Mail Address\")]");
+    String ExpEmailErrorMsg = "E-Mail Address does not appear to be valid!";
+    By TeleErrorMsg = By.xpath("//div[contains(text(),\"Telephone\")]");
+    String ExpTeleErrorMsg = "Telephone must be between 3 and 32 characters!";
+
+    public EditAccountPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public void clickBack() {
+        driver.findElement(BackBtn).click();
+    }
+
+    public void clickContinue() {
+        driver.findElement(ContinueBtn).click();
+    }
+
+    public String getExpectedTitle() {
+        return ExpectedTitle;
+    }
+    public String getActualTitle() {
+        return driver.findElement(ActualTitle).getText();
+    }
+
+    public void setFName(String fName) {
+        driver.findElement(FName).sendKeys(fName);
+    }
+
+    public void setlName(String sName) {
+        driver.findElement(LName).sendKeys(sName);
+    }
+
+    public void setTelephone(String telephone) {
+        driver.findElement(Telephone).sendKeys(telephone);
+    }
+
+    public void setEmail(String email) {
+        driver.findElement(Email).sendKeys(email);
+    }
+
+    public String getFNameErrorMsg() {
+        return driver.findElement(FNameErrorMsg).getText();
+    }
+
+    public String getExpFNameErrorMsg() {
+        return ExpFNameErrorMsg;
+    }
+
+    public String getLNameErrorMsg() {
+        return driver.findElement(LNameErrorMsg).getText();
+    }
+
+    public String getExpSNameErrorMsg() {
+        return ExpSNameErrorMsg;
+    }
+
+    public String getEmailErrorMsg() {
+        return driver.findElement(EmailErrorMsg).getText();
+    }
+
+    public String getExpEmailErrorMsg() {
+        return ExpEmailErrorMsg;
+    }
+
+    public String getTeleErrorMsg() {
+        return driver.findElement(TeleErrorMsg).getText();
+    }
+
+    public String getExpTeleErrorMsg() {
+        return ExpTeleErrorMsg;
+    }
+}

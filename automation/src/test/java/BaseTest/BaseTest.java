@@ -1,6 +1,9 @@
 package BaseTest;
 
 import Pages.*;
+import Pages.Authentication.LoginPage;
+import Pages.Authentication.RegisterPage;
+import Pages.MyAccount.MyAccountPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -15,6 +18,7 @@ public class BaseTest {
     protected HomePage homePage ;
     protected LoginPage loginPage ;
     protected MyAccountPage myAccountPage;
+    protected RegisterPage registerPage;
 
 
     @BeforeMethod(alwaysRun = true)

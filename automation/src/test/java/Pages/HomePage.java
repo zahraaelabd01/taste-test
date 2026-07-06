@@ -1,5 +1,7 @@
 package Pages;
 
+import Pages.Authentication.LoginPage;
+import Pages.Authentication.RegisterPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,7 +13,8 @@ import java.time.Duration;
 public class HomePage {
     WebDriver driver;
     private WebDriverWait wait;
-    By register = By.xpath("//div//a[text()=\"Continue\"]");
+    //By register = By.xpath("//div//a[text()=\"Continue\"]");
+    By register = By.xpath("//a[contains(@href,\"account/register\")]");
     By MyAccount= By.xpath("//div[@id='widget-navbar-217834']//a[normalize-space()='My account']");
     By megaMenuLocator= By.xpath("//a[normalize-space()='Mega Menu']");
 
@@ -25,7 +28,9 @@ public class HomePage {
         return new LoginPage(driver);
     }
     public RegisterPage RegisterClick(){
-        driver.findElement(MyAccount).click();
+        WebElement MyAccountDropdown= driver.findElement(MyAccount);
+        Actions action = new Actions(driver);
+        action.moveToElement(MyAccountDropdown).perform();
         driver.findElement(register).click();
         return new RegisterPage(driver);
     }
