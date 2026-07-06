@@ -2,6 +2,7 @@ package Pages;
 
 import Pages.Authentication.LoginPage;
 import Pages.Authentication.RegisterPage;
+import Pages.MyAccount.LogoutSuccessPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,6 +16,7 @@ public class HomePage {
     private WebDriverWait wait;
     By register = By.xpath("//a[contains(@href,\"account/register\")]");
     By MyAccount= By.xpath("//a[contains(@class, 'dropdown-toggle') and contains(., 'My account')]");
+
     By megaMenuLocator= By.xpath("//a[normalize-space()='Mega Menu']");
 
     public HomePage(WebDriver driver) {
@@ -34,6 +36,7 @@ public class HomePage {
         registerLinkElement.click();
         return new RegisterPage(driver);
     }
+
 
     public ProductPage navigateToMegaMenuProduct(String subPageName) {
         WebElement megaMenu = wait.until(ExpectedConditions.visibilityOfElementLocated(megaMenuLocator));
