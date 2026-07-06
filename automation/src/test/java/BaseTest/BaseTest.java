@@ -37,7 +37,7 @@ public class BaseTest {
         cartPage=new CartPage(driver);
     }
 
-   // @AfterMethod(alwaysRun = true)
+   @AfterMethod(alwaysRun = true)
     public void tearDown() {
         if (driver != null) {
             driver.quit();
