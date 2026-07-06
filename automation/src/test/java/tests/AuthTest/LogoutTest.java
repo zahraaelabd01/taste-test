@@ -1,8 +1,6 @@
 package tests.AuthTest;
 
-import BaseTest.BaseTest;
-import Pages.MyAccount.MyAccountPage;
-import com.beust.ah.A;
+import BaseTest.BaseTest;;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -29,5 +27,13 @@ public class LogoutTest extends BaseTest {
         String AfterTitle = driver.getTitle();
        System.out.println(AfterTitle);
         Assert.assertEquals( AfterTitle,"Account Login","BUG: Clicking continue did not redirect the user to the Login page!");
+   }
+   @Test(description = "TC_AUTH_017")
+    public void UserSessionAfterLogout(){
+       logoutPage.ContinueClick();
+       driver.get("https://ecommerce-playground.lambdatest.io/index.php?route=account/account");
+       Assert.assertEquals(driver.getTitle(), "Account Login");
+       System.out.println("User session test pass");
+       System.out.println("************************");
    }
 }
