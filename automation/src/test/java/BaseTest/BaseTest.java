@@ -3,6 +3,7 @@ package BaseTest;
 import Pages.*;
 import Pages.Authentication.LoginPage;
 import Pages.Authentication.RegisterPage;
+import Pages.MyAccount.EditAccountPage;
 import Pages.MyAccount.LogoutSuccessPage;
 import Pages.MyAccount.MyAccountPage;
 import org.openqa.selenium.WebDriver;
@@ -22,6 +23,7 @@ public class BaseTest {
     protected MyAccountPage myAccountPage;
     protected RegisterPage registerPage;
     protected LogoutSuccessPage logoutPage;
+    protected EditAccountPage editAccountPage;
 
 
     @BeforeMethod(alwaysRun = true)
