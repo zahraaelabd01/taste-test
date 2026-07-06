@@ -5,12 +5,13 @@ import Pages.RegisterPageUser6;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class AllSectionsTest extends BaseTest {
+public class VerifyStockInCartTest extends BaseTest {
 
     private WebDriverWait wait;
     private RegisterPageUser6 registerPage;
@@ -23,7 +24,7 @@ public class AllSectionsTest extends BaseTest {
     }
 
     @Test
-    public void registerLoginAndCheckoutFlow() {
+    public void verifyProductStillAvailableInCart() {
 
 
         registerPage.openRegisterPage();
@@ -47,34 +48,41 @@ public class AllSectionsTest extends BaseTest {
         driver.findElement(By.cssSelector("input[type='submit']")).click();
 
 
-        driver.get("https://ecommerce-playground.lambdatest.io/index.php?route=common/home");
+        driver.get("https://ecommerce-playground.lambdatest.io/index.php?route=product/product&product_id=58");
 
 
-        WebElement product = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        By.xpath("(//div[contains(@class,'product-layout')])[1]")
+        WebElement stockLabel = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//*[contains(text(),'In Stock') or contains(text(),'Stock')]")
                 )
         );
 
-        product.click();
-
+        Assert.assertTrue(stockLabel.isDisplayed(),
+                "Product should be shown as In Stock on product page");
 
         WebElement addToCart = wait.until(
                 ExpectedConditions.elementToBeClickable(By.id("button-cart"))
         );
-
         addToCart.click();
-
 
         driver.get("https://ecommerce-playground.lambdatest.io/index.php?route=checkout/cart");
 
 
-        WebElement checkoutBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        By.xpath("//a[contains(@href,'checkout/checkout') or contains(text(),'Checkout')]")
+        WebElement cartProduct = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//table//a[contains(@href,'product_id')]")
                 )
         );
 
-        checkoutBtn.click();
+        Assert.assertTrue(cartProduct.isDisplayed(),
+                "Product should appear in cart");
+
+
+        boolean stockInCartExists = driver.findElements(
+                By.xpath("//*[contains(text(),'In Stock') or contains(text(),'Available')]")
+        ).size() > 0;
+
+        Assert.assertTrue(stockInCartExists,
+                "Product should still be available in cart page");
     }
 }
