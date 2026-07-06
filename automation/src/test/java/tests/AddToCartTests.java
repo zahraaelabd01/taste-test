@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 public class AddToCartTests extends BaseTest {
     static final String SONY_VAIO = "Sony VAIO";
     static final String IPHONE = "iPhone";
-    @Test(description = "TC_CART_001: Add product to cart ")
+    @Test
     public void tc002_addFromProductDetailPage() {
         int before = cartPage.getHeaderCartItemCount();
         cartPage.hoverAndAddToCart(IPHONE);
@@ -16,7 +16,7 @@ public class AddToCartTests extends BaseTest {
         Assert.assertTrue(cartPage.isProductInCart(IPHONE), "Item should appear in cart");
     }
 
-    @Test(description = "TC_CART_005: Out-of-Stock product cannot be added to cart (see BUG-001)")
+    @Test
     public void tc005_outOfStockProductCannotBeAdded() {
 
         cartPage.openProductDetailPage(SONY_VAIO);

@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 public class CartPageTests extends BaseTest {
 
-    @Test(description = "TC_CART_013: Cart page loads correctly on direct URL navigation")
+    @Test
     public void tc013_cartPageLoadsOnDirectUrl() {
         cartPage.openDirectly();
 

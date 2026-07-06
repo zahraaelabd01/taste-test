@@ -31,6 +31,7 @@ public class BaseTest {
         driver = new ChromeDriver(options);
         driver.get("https://ecommerce-playground.lambdatest.io/");
         homePage=new HomePage(driver);
+        cartPage=new CartPage(driver);
     }
 
     @AfterMethod(alwaysRun = true)
