@@ -21,7 +21,10 @@ public class EditAccountPage {
     String ExpEmailErrorMsg = "E-Mail Address does not appear to be valid!";
     By TeleErrorMsg = By.xpath("//div[contains(text(),\"Telephone\")]");
     String ExpTeleErrorMsg = "Telephone must be between 3 and 32 characters!";
-
+    By UpdateSuccessMsg= By.cssSelector(".alert.alert-success.alert-dismissible");
+    String ExpUpdateSuccessMsg="Success: Your account has been successfully updated.";
+    By RegisteredEmail = By.cssSelector(".alert.alert-danger.alert-dismissible");
+    String ExpRegisteredEmail ="Warning: E-Mail address is already registered!";
     public EditAccountPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -42,18 +45,22 @@ public class EditAccountPage {
     }
 
     public void setFName(String fName) {
+        driver.findElement(FName).clear();
         driver.findElement(FName).sendKeys(fName);
     }
 
     public void setlName(String sName) {
+        driver.findElement(LName).clear();
         driver.findElement(LName).sendKeys(sName);
     }
 
     public void setTelephone(String telephone) {
+        driver.findElement(Telephone).clear();
         driver.findElement(Telephone).sendKeys(telephone);
     }
 
     public void setEmail(String email) {
+        driver.findElement(Email).clear();
         driver.findElement(Email).sendKeys(email);
     }
 
@@ -87,5 +94,21 @@ public class EditAccountPage {
 
     public String getExpTeleErrorMsg() {
         return ExpTeleErrorMsg;
+    }
+
+    public String getUpdateSuccessMsg() {
+        return driver.findElement(UpdateSuccessMsg).getText();
+    }
+
+    public String getExpUpdateSuccessMsg() {
+        return ExpUpdateSuccessMsg;
+    }
+
+    public String getRegisteredEmail() {
+        return driver.findElement(RegisteredEmail).getText();
+    }
+
+    public String getExpRegisteredEmail() {
+        return ExpRegisteredEmail;
     }
 }

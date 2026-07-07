@@ -13,7 +13,7 @@ public class LoginTest extends BaseTest {
         System.out.println("Login Page Opened");
         System.out.println("************************");
     }
-    @Test
+    @Test(description = "TC_AUTH_010")
     public void ValidLoginTest(){
         loginPage.setEmail("testhabeeba008@gmail.com");
         System.out.println("Email Done");
@@ -23,7 +23,7 @@ public class LoginTest extends BaseTest {
         System.out.println("---Valid Login Test pass---");
         System.out.println("*******************************");
     }
-    @Test
+    @Test(description = "TC_AUTH_011")
     public void InValidLoginTest(){
         loginPage.setEmail("test1@gmail.com");
         System.out.println("Invalid Email Done");
@@ -34,7 +34,7 @@ public class LoginTest extends BaseTest {
         System.out.println("---InValid Login Test pass---");
         System.out.println("*******************************");
     }
-    @Test
+    @Test(description = "TC_AUTH_012")
     public void accountLock(){
         for (int i=0 ; i<=8;i++){
             loginPage.setEmail("testhabeeba@gmail.com");
@@ -48,7 +48,7 @@ public class LoginTest extends BaseTest {
         System.out.println("---accountLock Test pass---");
         System.out.println("*******************************");
     }
-    @Test(enabled = false ,description ="Bug: Empty fields are triggering the Account Limit error!" )
+    @Test(enabled = false ,description ="TC_AUTH_013 - Bug: Empty fields are triggering the Account Limit error!" )
     public void EmptyFieldTest(){
         SoftAssert softAssert = new SoftAssert();
         loginPage.setEmail("");

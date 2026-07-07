@@ -30,7 +30,8 @@ public class RegisterPage {
     String ExpPassErrorMsg="Password must be between 4 and 20 characters!";
     By ConfirmPassErrorMsg= By.xpath("//input[@name=\"confirm\"]/following-sibling::div");
     String ExpConfirmPassErrorMsg="Password confirmation does not match password!";
-
+    By RegisteredEmailErrorMsg=By.cssSelector(".alert.alert-danger.alert-dismissible");
+    String ExpRegisteredEmailErrorMsg="Warning: E-Mail Address is already registered!";
 
     public RegisterPage(WebDriver driver) {
         this.driver = driver;
@@ -147,5 +148,13 @@ public class RegisterPage {
 
     public String getExpectedConfirmPassErrorMsg() {
         return ExpConfirmPassErrorMsg;
+    }
+
+    public String getRegisteredEmailErrorMsg() {
+        return driver.findElement(RegisteredEmailErrorMsg).getText();
+    }
+
+    public String getExpRegisteredEmailErrorMsg() {
+        return ExpRegisteredEmailErrorMsg;
     }
 }

@@ -2,9 +2,14 @@ package Pages.MyAccount;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MyAccountPage {
     WebDriver driver;
+    private WebDriverWait wait;
     By ActualTitle = By.xpath("//h2[text()=\"My Account\"]");
     String ExpectedTitle ="My Account";
     By accountEdit = By.xpath("//div[@id='content']//a[contains(@href, 'account/edit')]");
@@ -21,6 +26,9 @@ public class MyAccountPage {
     By recurringPaymentsBtn = By.xpath("//div[@id='content']//a[contains(@href, 'account/recurring')]");
 
     By accountAffiliate = By.xpath("//div[@id='content']//a[contains(@href, 'account/affiliate')]");
+
+    //By Logout = By.xpath("//a[contains(@href,\"account/logout\")and @class=\"icon-left both dropdown-item\"]");
+    By Logout =By.xpath("//a[contains(@href,\"account/logout\")and @class=\"list-group-item\"]");
     public MyAccountPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -79,6 +87,11 @@ public class MyAccountPage {
     }
     public void clickAccountAffiliate() {
         driver.findElement(accountAffiliate).click();
+    }
+
+    public LogoutSuccessPage LogoutClick(){
+        driver.findElement(Logout).click();
+        return new LogoutSuccessPage(driver);
     }
 
 }
