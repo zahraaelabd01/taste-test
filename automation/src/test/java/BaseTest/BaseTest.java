@@ -1,6 +1,7 @@
 package BaseTest;
 
 import Pages.*;
+import Pages.Authentication.ForgottenPassPage;
 import Pages.Authentication.LoginPage;
 import Pages.Authentication.RegisterPage;
 import Pages.MyAccount.ChangePasswordPage;
@@ -26,7 +27,7 @@ public class BaseTest {
     protected LogoutSuccessPage logoutPage;
     protected EditAccountPage editAccountPage;
     protected ChangePasswordPage changePass;
-
+    protected ForgottenPassPage forgottenPassPage;
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() {

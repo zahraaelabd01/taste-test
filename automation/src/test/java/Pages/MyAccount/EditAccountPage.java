@@ -14,7 +14,7 @@ public class EditAccountPage {
     String ExpectedTitle = "My Account Information";
     By FName = By.xpath("//input[@name=\"firstname\"]");
     By LName = By.xpath("//input[@name=\"lastname\"]");
-    By Email = By.id("input-email");
+    By Email = By.cssSelector("#input-email");
     By Telephone = By.id("input-telephone");
     By ContinueBtn = By.xpath("//input[@value=\"Continue\"]");
     By BackBtn = By.xpath("//a[text()=\" Back\"]");
