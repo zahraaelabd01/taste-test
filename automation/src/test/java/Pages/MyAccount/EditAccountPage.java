@@ -2,21 +2,26 @@ package Pages.MyAccount;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class EditAccountPage {
     WebDriver driver;
+    WebDriverWait wait;
     By ActualTitle = By.cssSelector(".page-title.h3.mb-3");
     String ExpectedTitle = "My Account Information";
     By FName = By.xpath("//input[@name=\"firstname\"]");
     By LName = By.xpath("//input[@name=\"lastname\"]");
-    By Email = By.id("input-email");
+    By Email = By.cssSelector("#input-email");
     By Telephone = By.id("input-telephone");
     By ContinueBtn = By.xpath("//input[@value=\"Continue\"]");
     By BackBtn = By.xpath("//a[text()=\" Back\"]");
     By FNameErrorMsg = By.xpath("//div[contains(text(),\"First Name\")]");
     String ExpFNameErrorMsg = "First Name must be between 1 and 32 characters!";
     By LNameErrorMsg = By.xpath("//div[contains(text(),\"Last Name\")]");
-    String ExpSNameErrorMsg = "Last Name must be between 1 and 32 characters!";
+    String ExpLNameErrorMsg = "Last Name must be between 1 and 32 characters!";
     By EmailErrorMsg = By.xpath("//div[contains(text(),\"E-Mail Address\")]");
     String ExpEmailErrorMsg = "E-Mail Address does not appear to be valid!";
     By TeleErrorMsg = By.xpath("//div[contains(text(),\"Telephone\")]");
@@ -27,12 +32,12 @@ public class EditAccountPage {
     String ExpRegisteredEmail ="Warning: E-Mail address is already registered!";
     public EditAccountPage(WebDriver driver) {
         this.driver = driver;
+        this.wait= new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public void clickBack() {
         driver.findElement(BackBtn).click();
     }
-
     public void clickContinue() {
         driver.findElement(ContinueBtn).click();
     }
@@ -76,8 +81,8 @@ public class EditAccountPage {
         return driver.findElement(LNameErrorMsg).getText();
     }
 
-    public String getExpSNameErrorMsg() {
-        return ExpSNameErrorMsg;
+    public String getExpLNameErrorMsg() {
+        return ExpLNameErrorMsg;
     }
 
     public String getEmailErrorMsg() {
@@ -97,6 +102,7 @@ public class EditAccountPage {
     }
 
     public String getUpdateSuccessMsg() {
+        wait.until(ExpectedConditions.not(ExpectedConditions.titleIs("My Account Information")));
         return driver.findElement(UpdateSuccessMsg).getText();
     }
 
