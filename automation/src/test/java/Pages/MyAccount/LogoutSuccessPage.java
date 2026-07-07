@@ -7,11 +7,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class LogoutSuccessPage {
-    WebDriver driver;
-    WebDriverWait wait ;
-    By ActualTitle = By.cssSelector(".page-title.my-3");
-    String ExpTitle="Account Logout";
-    By ContinueBtn= By.xpath("//a[text()='Continue']");
+    private WebDriver driver;
+    private WebDriverWait wait ;
+    private By ActualTitle = By.cssSelector(".page-title.my-3");
+    private String ExpTitle="Account Logout";
+    private By ContinueBtn= By.xpath("//a[text()='Continue']");
 
     public LogoutSuccessPage(WebDriver driver) {
         this.driver = driver;

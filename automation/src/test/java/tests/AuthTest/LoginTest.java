@@ -39,23 +39,22 @@ public class LoginTest extends BaseTest {
         for (int i=0 ; i<=8;i++){
             loginPage.setEmail("testhabeeba@gmail.com");
             loginPage.setPassword("WrongPass");
-            myAccountPage=loginPage.LoginClick();
+            loginPage.LoginClick();
+            loginPage.getActualErrorMsg();
         }
         loginPage.setEmail("testhabeeba@gmail.com");
         loginPage.setPassword("1234");
-        myAccountPage=loginPage.LoginClick();
+        loginPage.LoginClick();
         Assert.assertEquals(loginPage.getActualErrorMsg(),loginPage.getExpAccLimitErrorMsg());
         System.out.println("---accountLock Test pass---");
         System.out.println("*******************************");
     }
     @Test(enabled = false ,description ="TC_AUTH_013 - Bug: Empty fields are triggering the Account Limit error!" )
     public void EmptyFieldTest(){
-        SoftAssert softAssert = new SoftAssert();
         loginPage.setEmail("");
         loginPage.setPassword("");
         myAccountPage=loginPage.LoginClick();
-        softAssert.assertEquals(loginPage.getActualErrorMsg(),loginPage.getExpEmptyFieldErrorMsg(),"Bug: Empty fields are triggering the Account Limit error!");
-        softAssert.assertAll();
+        Assert.assertEquals(loginPage.getActualErrorMsg(),loginPage.getExpEmptyFieldErrorMsg(),"Bug: Empty fields are triggering the Account Limit error!");
         System.out.println("---EmptyField Test pass---");
         System.out.println("*******************************");
     }

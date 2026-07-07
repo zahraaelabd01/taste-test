@@ -8,17 +8,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class ForgottenPassPage {
-    WebDriver driver;
-    WebDriverWait wait;
-    By ActualTitle = By.cssSelector(".page-title.h3.mb-3");
-    String ExpTitle ="Forgot Your Password?";
-    By Email = By.cssSelector("#input-email");
-    By ContinueBtn = By.xpath("//div[@class=\"float-right\"]/button");
-    By BackBtn = By.xpath("//div[@class=\"float-left\"]/a");
-    By EmailErrorMsg = By.cssSelector(".alert.alert-danger.alert-dismissible");
-    String ExpEmailErrorMsg="Warning: The E-Mail Address was not found in our records, please try again!";
-    By SuccessMsg= By.cssSelector(".alert.alert-success.alert-dismissible");
-    String ExpSuccessMsg ="An email with a confirmation link has been sent your email address.";
+    private WebDriver driver;
+    private WebDriverWait wait;
+    private By ActualTitle = By.cssSelector(".page-title.h3.mb-3");
+    private String ExpTitle ="Forgot Your Password?";
+    private By Email = By.cssSelector("#input-email");
+    private By ContinueBtn = By.xpath("//div[@class=\"float-right\"]/button");
+    private By BackBtn = By.xpath("//div[@class=\"float-left\"]/a");
+    private By EmailErrorMsg = By.cssSelector(".alert.alert-danger.alert-dismissible");
+    private String ExpEmailErrorMsg="Warning: The E-Mail Address was not found in our records, please try again!";
+    private By SuccessMsg= By.cssSelector(".alert.alert-success.alert-dismissible");
+    private String ExpSuccessMsg ="An email with a confirmation link has been sent your email address.";
 
     public ForgottenPassPage(WebDriver driver) {
         this.driver = driver;

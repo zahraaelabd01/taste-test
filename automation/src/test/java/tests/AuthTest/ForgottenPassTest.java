@@ -31,7 +31,7 @@ public class ForgottenPassTest extends BaseTest {
     @Test
     public void SuccessfulPasswordResetTest() {
         forgottenPassPage.setEmail("testhabeeba008@gmail.com");
-        forgottenPassPage.clickContinue();
+        loginPage= forgottenPassPage.clickContinue();
         Assert.assertEquals(forgottenPassPage.getSuccessMsg(),forgottenPassPage.getExpSuccessMsg());
         System.out.println("Password reset request successfully submitted.");
     }

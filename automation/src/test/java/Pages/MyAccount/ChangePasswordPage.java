@@ -8,20 +8,20 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class ChangePasswordPage {
-    WebDriver driver;
-    WebDriverWait wait;
-    By ActualTitle = By.cssSelector(".page-title.h3.mb-3");
-    String ExpTitle ="Change Password";
-    By Password = By.xpath("//input[@name=\"password\"]");
-    By ConfirmPassword = By.xpath("//input[@name=\"confirm\"]");
-    By ContinueBtn = By.xpath("//input[@value=\"Continue\"]");
-    By BackBtn = By.xpath("//a[text()=\" Back\"]");
-    By PassErrorMs = By.xpath("//input[@name=\"password\"]/following-sibling::div ");
-    String ExpPassErrorMs="Password must be between 4 and 20 characters!";
-    By ConfirmPassErrorMsg = By.xpath("//input[@name=\"confirm\"]/following-sibling::div ");
-    String ExpConfirmPassErrorMs="Password confirmation does not match password!";
-    By SuccessUpdateMsg= By.cssSelector(".alert.alert-success.alert-dismissible");
-    String ExpSuccessUpdateMsg ="Success: Your password has been successfully updated.";
+    private WebDriver driver;
+    private WebDriverWait wait;
+    private By ActualTitle = By.cssSelector(".page-title.h3.mb-3");
+    private String ExpTitle ="Change Password";
+    private By Password = By.xpath("//input[@name=\"password\"]");
+    private By ConfirmPassword = By.xpath("//input[@name=\"confirm\"]");
+    private By ContinueBtn = By.xpath("//input[@value=\"Continue\"]");
+    private By BackBtn = By.xpath("//a[text()=\" Back\"]");
+    private By PassErrorMs = By.xpath("//input[@name=\"password\"]/following-sibling::div ");
+    private String ExpPassErrorMs="Password must be between 4 and 20 characters!";
+    private By ConfirmPassErrorMsg = By.xpath("//input[@name=\"confirm\"]/following-sibling::div ");
+    private String ExpConfirmPassErrorMs="Password confirmation does not match password!";
+    private By SuccessUpdateMsg= By.cssSelector(".alert.alert-success.alert-dismissible");
+    private String ExpSuccessUpdateMsg ="Success: Your password has been successfully updated.";
 
 
     public ChangePasswordPage(WebDriver driver) {
