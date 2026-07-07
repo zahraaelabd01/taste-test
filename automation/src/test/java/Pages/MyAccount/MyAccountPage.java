@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MyAccountPage {
     WebDriver driver;
-    private WebDriverWait wait;
+    WebDriverWait wait;
     By ActualTitle = By.xpath("//h2[text()=\"My Account\"]");
     String ExpectedTitle ="My Account";
     By accountEdit = By.xpath("//div[@id='content']//a[contains(@href, 'account/edit')]");
@@ -46,8 +46,9 @@ public class MyAccountPage {
         return new EditAccountPage(driver);
     }
 
-    public void clickChangePassword() {
+    public ChangePasswordPage clickChangePassword() {
         driver.findElement(passwordBtn).click();
+        return new ChangePasswordPage(driver);
     }
 
     public void clickAddressBook() {
