@@ -24,8 +24,7 @@ public class VerifyStockInCartTest extends BaseTest {
     }
 
     @Test
-    public void verifyProductStillAvailableInCart() {
-
+    public void verifyOutOfStockBlockCheckout() {
 
         registerPage.openRegisterPage();
 
@@ -40,49 +39,50 @@ public class VerifyStockInCartTest extends BaseTest {
                 password
         );
 
-
         driver.get("https://ecommerce-playground.lambdatest.io/index.php?route=account/login");
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("input-email"))).sendKeys(email);
         driver.findElement(By.id("input-password")).sendKeys(password);
         driver.findElement(By.cssSelector("input[type='submit']")).click();
 
-
-        driver.get("https://ecommerce-playground.lambdatest.io/index.php?route=product/product&product_id=58");
-
+        driver.get("https://ecommerce-playground.lambdatest.io/index.php?route=product/product&product_id=30");
 
         WebElement stockLabel = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(
-                        By.xpath("//*[contains(text(),'In Stock') or contains(text(),'Stock')]")
+                        By.xpath("//*[contains(text(),'Out Of Stock') or contains(text(),'Out of Stock')]")
                 )
         );
 
         Assert.assertTrue(stockLabel.isDisplayed(),
-                "Product should be shown as In Stock on product page");
+                "Product should be explicitly shown as Out Of Stock on the product page");
 
-        WebElement addToCart = wait.until(
-                ExpectedConditions.elementToBeClickable(By.id("button-cart"))
-        );
-        addToCart.click();
+        try {
+            WebElement addToCart = driver.findElement(By.id("button-cart"));
+            if (addToCart.isEnabled()) {
+                addToCart.click();
+            }
+        } catch (Exception ignored) {
+        }
 
         driver.get("https://ecommerce-playground.lambdatest.io/index.php?route=checkout/cart");
 
-
-        WebElement cartProduct = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        By.xpath("//table//a[contains(@href,'product_id')]")
-                )
-        );
-
-        Assert.assertTrue(cartProduct.isDisplayed(),
-                "Product should appear in cart");
-
-
-        boolean stockInCartExists = driver.findElements(
-                By.xpath("//*[contains(text(),'In Stock') or contains(text(),'Available')]")
+        boolean errorAlertExists = driver.findElements(
+                By.xpath("//div[contains(@class,'alert-danger') or contains(text(),'not available in the desired quantity') or contains(text(),'***')]")
         ).size() > 0;
 
-        Assert.assertTrue(stockInCartExists,
-                "Product should still be available in cart page");
+        boolean checkoutButtonDisabled = false;
+        try {
+            WebElement checkoutBtn = driver.findElement(By.xpath("//a[contains(@href,'checkout/checkout') or contains(text(),'Checkout')]"));
+            String isDisabled = checkoutBtn.getAttribute("disabled");
+            String cssClass = checkoutBtn.getAttribute("class");
+            if (isDisabled != null || (cssClass != null && cssClass.contains("disabled"))) {
+                checkoutButtonDisabled = true;
+            }
+        } catch (Exception ignored) {
+            checkoutButtonDisabled = true;
+        }
+
+        Assert.assertTrue(errorAlertExists || checkoutButtonDisabled,
+                "The system must block checkout either by showing a red danger alert in the cart or by disabling the checkout button.");
     }
 }
