@@ -17,7 +17,7 @@ public class RegisterTest extends BaseTest.BaseTest {
     public void validRegister(){
         registerPage.setFirstName("Test");
         registerPage.setLastName("One");
-        registerPage.setEmail("vorow6112118@parsitv.com");
+        registerPage.setEmail("vorow61121118@parsitv.com");
         registerPage.setTelephone("13802603245");
         registerPage.setPassword("1234");
         registerPage.setConfirmPassword("1234");

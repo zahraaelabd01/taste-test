@@ -2,37 +2,43 @@ package Pages.MyAccount;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class EditAccountPage {
-    WebDriver driver;
-    By ActualTitle = By.cssSelector(".page-title.h3.mb-3");
-    String ExpectedTitle = "My Account Information";
-    By FName = By.xpath("//input[@name=\"firstname\"]");
-    By LName = By.xpath("//input[@name=\"lastname\"]");
-    By Email = By.id("input-email");
-    By Telephone = By.id("input-telephone");
-    By ContinueBtn = By.xpath("//input[@value=\"Continue\"]");
-    By BackBtn = By.xpath("//a[text()=\" Back\"]");
-    By FNameErrorMsg = By.xpath("//div[contains(text(),\"First Name\")]");
-    String ExpFNameErrorMsg = "First Name must be between 1 and 32 characters!";
-    By LNameErrorMsg = By.xpath("//div[contains(text(),\"Last Name\")]");
-    String ExpSNameErrorMsg = "Last Name must be between 1 and 32 characters!";
-    By EmailErrorMsg = By.xpath("//div[contains(text(),\"E-Mail Address\")]");
-    String ExpEmailErrorMsg = "E-Mail Address does not appear to be valid!";
-    By TeleErrorMsg = By.xpath("//div[contains(text(),\"Telephone\")]");
-    String ExpTeleErrorMsg = "Telephone must be between 3 and 32 characters!";
-    By UpdateSuccessMsg= By.cssSelector(".alert.alert-success.alert-dismissible");
-    String ExpUpdateSuccessMsg="Success: Your account has been successfully updated.";
-    By RegisteredEmail = By.cssSelector(".alert.alert-danger.alert-dismissible");
-    String ExpRegisteredEmail ="Warning: E-Mail address is already registered!";
+    private WebDriver driver;
+    private WebDriverWait wait;
+    private By ActualTitle = By.cssSelector(".page-title.h3.mb-3");
+    private String ExpectedTitle = "My Account Information";
+    private By FName = By.xpath("//input[@name=\"firstname\"]");
+    private By LName = By.xpath("//input[@name=\"lastname\"]");
+    private By Email = By.cssSelector("#input-email");
+    private By Telephone = By.id("input-telephone");
+    private By ContinueBtn = By.xpath("//input[@value=\"Continue\"]");
+    private By BackBtn = By.xpath("//a[text()=\" Back\"]");
+    private By FNameErrorMsg = By.xpath("//div[contains(text(),\"First Name\")]");
+    private String ExpFNameErrorMsg = "First Name must be between 1 and 32 characters!";
+    private By LNameErrorMsg = By.xpath("//div[contains(text(),\"Last Name\")]");
+    private String ExpLNameErrorMsg = "Last Name must be between 1 and 32 characters!";
+    private By EmailErrorMsg = By.xpath("//div[contains(text(),\"E-Mail Address\")]");
+    private String ExpEmailErrorMsg = "E-Mail Address does not appear to be valid!";
+    private By TeleErrorMsg = By.xpath("//div[contains(text(),\"Telephone\")]");
+    private String ExpTeleErrorMsg = "Telephone must be between 3 and 32 characters!";
+    private By UpdateSuccessMsg= By.cssSelector(".alert.alert-success.alert-dismissible");
+    private String ExpUpdateSuccessMsg="Success: Your account has been successfully updated.";
+    private By RegisteredEmail = By.cssSelector(".alert.alert-danger.alert-dismissible");
+    private String ExpRegisteredEmail ="Warning: E-Mail address is already registered!";
+
     public EditAccountPage(WebDriver driver) {
         this.driver = driver;
+        this.wait= new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public void clickBack() {
         driver.findElement(BackBtn).click();
     }
-
     public void clickContinue() {
         driver.findElement(ContinueBtn).click();
     }
@@ -76,8 +82,8 @@ public class EditAccountPage {
         return driver.findElement(LNameErrorMsg).getText();
     }
 
-    public String getExpSNameErrorMsg() {
-        return ExpSNameErrorMsg;
+    public String getExpLNameErrorMsg() {
+        return ExpLNameErrorMsg;
     }
 
     public String getEmailErrorMsg() {
@@ -97,6 +103,7 @@ public class EditAccountPage {
     }
 
     public String getUpdateSuccessMsg() {
+        wait.until(ExpectedConditions.not(ExpectedConditions.titleIs("My Account Information")));
         return driver.findElement(UpdateSuccessMsg).getText();
     }
 

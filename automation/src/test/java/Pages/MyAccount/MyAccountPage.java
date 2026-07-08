@@ -8,27 +8,28 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MyAccountPage {
-    WebDriver driver;
+    private WebDriver driver;
     private WebDriverWait wait;
-    By ActualTitle = By.xpath("//h2[text()=\"My Account\"]");
-    String ExpectedTitle ="My Account";
-    By accountEdit = By.xpath("//div[@id='content']//a[contains(@href, 'account/edit')]");
-    By passwordBtn = By.xpath("//div[@id='content']//a[contains(@href, 'account/password')]");
-    By addressBookBtn = By.xpath("//div[@id='content']//a[contains(@href, 'account/address')]");
-    By wishListBtn = By.xpath("//div[@id='content']//a[contains(@href, 'account/wishlist')]");
-    By newsletterBtn = By.xpath("//div[@id='content']//a[contains(@href, 'account/newsletter')]");
+    private By ActualTitle = By.xpath("//h2[text()=\"My Account\"]");
+    private String ExpectedTitle ="My Account";
+    private By accountEdit = By.xpath("//div[@id='content']//a[contains(@href, 'account/edit')]");
+    private By passwordBtn = By.xpath("//div[@id='content']//a[contains(@href, 'account/password')]");
+    private By addressBookBtn = By.xpath("//div[@id='content']//a[contains(@href, 'account/address')]");
+    private By wishListBtn = By.xpath("//div[@id='content']//a[contains(@href, 'account/wishlist')]");
+    private By newsletterBtn = By.xpath("//div[@id='content']//a[contains(@href, 'account/newsletter')]");
 
-    By orderHistoryBtn = By.xpath("//div[@id='content']//a[contains(@href, 'account/order')]");
-    By downloadsBtn = By.xpath("//div[@id='content']//a[contains(@href, 'account/download')]");
-    By rewardPointsBtn = By.xpath("//div[@id='content']//a[contains(@href, 'account/reward')]");
-    By returnsBtn = By.xpath("//div[@id='content']//a[contains(@href, 'account/return')]");
-    By transactionsBtn = By.xpath("//div[@id='content']//a[contains(@href, 'account/transaction')]");
-    By recurringPaymentsBtn = By.xpath("//div[@id='content']//a[contains(@href, 'account/recurring')]");
+    private By orderHistoryBtn = By.xpath("//div[@id='content']//a[contains(@href, 'account/order')]");
+    private By downloadsBtn = By.xpath("//div[@id='content']//a[contains(@href, 'account/download')]");
+    private By rewardPointsBtn = By.xpath("//div[@id='content']//a[contains(@href, 'account/reward')]");
+    private By returnsBtn = By.xpath("//div[@id='content']//a[contains(@href, 'account/return')]");
+    private By transactionsBtn = By.xpath("//div[@id='content']//a[contains(@href, 'account/transaction')]");
+    private By recurringPaymentsBtn = By.xpath("//div[@id='content']//a[contains(@href, 'account/recurring')]");
 
-    By accountAffiliate = By.xpath("//div[@id='content']//a[contains(@href, 'account/affiliate')]");
+    private By accountAffiliate = By.xpath("//div[@id='content']//a[contains(@href, 'account/affiliate')]");
 
-    //By Logout = By.xpath("//a[contains(@href,\"account/logout\")and @class=\"icon-left both dropdown-item\"]");
-    By Logout =By.xpath("//a[contains(@href,\"account/logout\")and @class=\"list-group-item\"]");
+    //private By Logout = By.xpath("//a[contains(@href,\"account/logout\")and @class=\"icon-left both dropdown-item\"]");
+    private By Logout =By.xpath("//a[contains(@href,\"account/logout\")and @class=\"list-group-item\"]");
+
     public MyAccountPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -46,8 +47,9 @@ public class MyAccountPage {
         return new EditAccountPage(driver);
     }
 
-    public void clickChangePassword() {
+    public ChangePasswordPage clickChangePassword() {
         driver.findElement(passwordBtn).click();
+        return new ChangePasswordPage(driver);
     }
 
     public void clickAddressBook() {

@@ -4,6 +4,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
+import java.util.List;
 
 public class ProductPage {
     WebDriver driver;
@@ -13,21 +14,26 @@ public class ProductPage {
     By productList = By.cssSelector(".product-layout");
 
     // ---- Product detail page ----
-    By quantityInput   = By.id("input-quantity");
-    By addToCartButton = By.id("button-cart");
-    By buyNowButton    = By.cssSelector("button[onclick*='buynow'], .btn-buynow");
+    By addToCartButton = By.cssSelector("button[title='Add to Cart']");
+    By buyNowButton    = By.cssSelector("button[title='Buy now']");
     By compareButton   = By.cssSelector("button[onclick*='compare']");
     By errorAlert      = By.cssSelector(".alert-dismissible, .text-danger");
-    By stockStatus     = By.xpath("//li[contains(.,'Availability')]");
+    By stockStatus     = By.cssSelector(".badge.badge-danger");
     By sizeDropdown    = By.cssSelector("select[name^='option']");
+
+    By tabDescription  = By.xpath("//a[contains(@class,'nav-link') and normalize-space()='Description']");
+    By tabReviews        =By.xpath("//a[contains(@class,'nav-link') and normalize-space()='Reviews']");
 
     By reviewNameInput   = By.id("input-name");
     By reviewTextInput   = By.id("input-review");
-    By reviewRatingRadios = By.cssSelector("input[name='rating']");
     By reviewSubmitBtn   = By.id("button-review");
-    By reviewWarning     = By.cssSelector("#form-review .alert, .text-danger");
-    By reviewCountText   = By.id("review-total");
-    By tabReviews        = By.linkText("Reviews");
+    By reviewRatingRadios = By.cssSelector("input[name='rating']");
+    By reviewWarning     = By.cssSelector(".alert-dismissible, .text-danger");
+    By reviewCountText   = By.cssSelector(".total-review");
+
+    By increaseQtyButton = By.cssSelector("button[aria-label='Increase quantity']");
+    By decreaseQtyButton = By.cssSelector("button[aria-label='Decrease quantity']");
+
 
     public ProductPage(WebDriver driver) {
         this.driver = driver;
@@ -38,53 +44,67 @@ public class ProductPage {
         return !driver.findElements(productList).isEmpty();
     }
 
-    // ---- Navigate from listing to a specific product ----
+
     public void openProduct(String productName) {
         By productLink = By.xpath(
                 "//img[@alt='" + productName + "']/ancestor::a[contains(@href,'product_id')]");
         wait.until(ExpectedConditions.elementToBeClickable(productLink)).click();
     }
 
-    // ---- Add-to-cart shortcut icon from listing page (hover-triggered) ----
-    public void hoverAndClickCartShortcut(String productName) {
-        By productImage = By.xpath("//img[@alt='" + productName + "']");
-        WebElement image = wait.until(ExpectedConditions.visibilityOfElementLocated(productImage));
-        new org.openqa.selenium.interactions.Actions(driver).moveToElement(image).perform();
 
-        By cartShortcutIcon = By.xpath(
-                "//img[@alt='" + productName + "']/ancestor::div[contains(@class,'carousel')]//a[contains(@class,'cart') or @title='Add to Cart']");
-        wait.until(ExpectedConditions.elementToBeClickable(cartShortcutIcon)).click();
+    private WebElement getVisibleQuantityContainer() {
+        List<WebElement> inputs = driver.findElements(By.cssSelector("input[aria-label='Qty']"));
+        for (WebElement input : inputs) {
+            if (input.isDisplayed()) {
+                return input.findElement(By.xpath("./ancestor::div[contains(@class,'input-group')][1]"));
+            }
+        }
+        throw new NoSuchElementException("No visible quantity input group found");
     }
 
-    // ---- Quantity ----
-    public void enterQuantity(String qty) {
-        WebElement field = wait.until(ExpectedConditions.visibilityOfElementLocated(quantityInput));
-        field.clear();
-        field.sendKeys(qty);
+    public void clickIncreaseQuantity() {
+        WebElement container = getVisibleQuantityContainer();
+        WebElement button = container.findElement(By.cssSelector("button[aria-label='Increase quantity']"));
+        String before = getQuantityFieldValue();
+        wait.until(ExpectedConditions.elementToBeClickable(button)).click();
+        wait.until(d -> !getQuantityFieldValue().equals(before)); // wait for value to actually change
+    }
+
+    public void clickDecreaseQuantity() {
+        WebElement container = getVisibleQuantityContainer();
+        WebElement button = container.findElement(By.cssSelector("button[aria-label='Decrease quantity']"));
+        wait.until(ExpectedConditions.elementToBeClickable(button)).click();
     }
 
     public String getQuantityFieldValue() {
-        return driver.findElement(quantityInput).getAttribute("value");
+        WebElement container = getVisibleQuantityContainer();
+        return container.findElement(By.cssSelector("input[aria-label='Qty']")).getAttribute("value");
     }
 
     public void clickAddToCart() {
         wait.until(ExpectedConditions.elementToBeClickable(addToCartButton)).click();
     }
 
+    public boolean isAddToCartEnabled() {
+        return driver.findElement(addToCartButton).isEnabled();
+    }
+
     public String getErrorMessageText() {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(errorAlert)).getText();
     }
 
-    // ---- Buy Now / Compare ----
     public void clickBuyNow() {
         wait.until(ExpectedConditions.elementToBeClickable(buyNowButton)).click();
+    }
+
+    public boolean isBuyNowEnabled() {
+        return driver.findElement(buyNowButton).isEnabled();
     }
 
     public void clickCompareIcon() {
         wait.until(ExpectedConditions.elementToBeClickable(compareButton)).click();
     }
 
-    // ---- Stock / size ----
     public String getStockStatusText() {
         return driver.findElement(stockStatus).getText();
     }
@@ -94,7 +114,12 @@ public class ProductPage {
                 && driver.findElement(sizeDropdown).isDisplayed();
     }
 
-    // ---- Reviews ----
+    // ---- Tabs ----
+    public void clickTab(String tabName) {
+        By tabLocator = By.xpath("//a[contains(@class,'nav-link') and normalize-space()='" + tabName + "']");
+        wait.until(ExpectedConditions.elementToBeClickable(tabLocator)).click();
+    }
+
     public void openReviewsTab() {
         wait.until(ExpectedConditions.elementToBeClickable(tabReviews)).click();
     }
@@ -108,10 +133,10 @@ public class ProductPage {
     }
 
     public void selectRating(int stars) {
-        driver.findElements(reviewRatingRadios).stream()
-                .filter(r -> r.getAttribute("value").equals(String.valueOf(stars)))
-                .findFirst()
-                .ifPresent(WebElement::click);
+        WebElement input = driver.findElement(By.cssSelector("input[name='rating'][value='" + stars + "']"));
+        String inputId = input.getAttribute("id");
+        WebElement label = driver.findElement(By.cssSelector("label[for='" + inputId + "']"));
+        wait.until(ExpectedConditions.elementToBeClickable(label)).click();
     }
 
     public void submitReview() {
@@ -120,5 +145,9 @@ public class ProductPage {
 
     public String getReviewCountText() {
         return driver.findElement(reviewCountText).getText();
+    }
+
+    public String getReviewWarningText() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(reviewWarning)).getText();
     }
 }

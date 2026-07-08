@@ -3,21 +3,28 @@ package Pages.Authentication;
 import Pages.MyAccount.MyAccountPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class LoginPage {
-    WebDriver driver;
-    By ActualTitle = By.xpath("//h2[text()=\"Returning Customer\"]");
-    String ExpectedTitle ="Returning Customer";
-    By Email =By.id("input-email");
-    By Password =By.id("input-password");
-    By LoginButton=By.xpath("//input[@value=\"Login\"]");
-    By ForgottenPass=By.xpath("//div[@class=\"form-group\"]/a");
-    By ActualErrorMsg=By.cssSelector(".alert.alert-danger.alert-dismissible");
-    String ExpErrorMsg="Warning: No match for E-Mail Address and/or Password.";
-    String ExpAccLimitErrorMsg="Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.";
-    String ExpEmptyFieldErrorMsg= "Email address or password field can't be empty";
+    private WebDriver driver;
+    private WebDriverWait wait;
+    private By ActualTitle = By.xpath("//h2[text()=\"Returning Customer\"]");
+    private String ExpectedTitle ="Returning Customer";
+    private By Email =By.id("input-email");
+    private By Password =By.id("input-password");
+    private By LoginButton=By.xpath("//input[@value=\"Login\"]");
+    private By ActualErrorMsg=By.cssSelector(".alert.alert-danger.alert-dismissible");
+    private String ExpErrorMsg="Warning: No match for E-Mail Address and/or Password.";
+    private String ExpAccLimitErrorMsg="Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.";
+    private String ExpEmptyFieldErrorMsg= "Email address or password field can't be empty";
+    private By ForgottenPassLink= By.xpath("//div[@class=\"form-group\"]/a");
+
     public LoginPage(WebDriver driver) {
         this.driver = driver;
+        this.wait= new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public String getExpTitle() {
@@ -29,7 +36,7 @@ public class LoginPage {
     }
 
     public String getActualErrorMsg() {
-        return driver.findElement(ActualErrorMsg).getText();
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(ActualErrorMsg)).getText();
     }
 
     public String getActualTitle() {
@@ -50,7 +57,7 @@ public class LoginPage {
         return new MyAccountPage(driver);
     }
     public ForgottenPassPage ForgetClick(){
-        driver.findElement(ForgottenPass).click();
+        driver.findElement(ForgottenPassLink).click();
         return new ForgottenPassPage(driver);
     }
 
