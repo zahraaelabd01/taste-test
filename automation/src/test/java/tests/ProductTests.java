@@ -125,7 +125,7 @@ public class ProductTests extends BaseTest {
         String afterCount = productPage.getReviewCountText();
 
         Assert.assertNotEquals(beforeCount, afterCount,
-                " review count did not increment after submitting a valid review (known bug)");
+                " review count did not increment after submitting a valid review ");
     }
 
     @Test(priority = 10)
