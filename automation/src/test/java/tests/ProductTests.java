@@ -4,7 +4,6 @@ import BaseTest.BaseTest;
 import Pages.HomePage;
 import Pages.ProductPage;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 
@@ -18,8 +17,8 @@ public class ProductTests extends BaseTest {
     private ProductPage goToProduct(String productName) {
         driver.get("https://ecommerce-playground.lambdatest.io/");
         HomePage homePage = new HomePage(driver);
-        ProductPage productPage = homePage.navigateToMegaMenuProduct(CATEGORY);
-        productPage.openProduct(productName);
+        ProductPage productPage = homePage.navigateToMegaMenuProduct(CATEGORY);  // listing page
+        productPage.openProduct(productName);  // open specific product from listing page
         return productPage;
     }
 
@@ -35,19 +34,13 @@ public class ProductTests extends BaseTest {
     }
 
 
-    @DataProvider(name = "boundaryQuantities")
-    public Object[][] boundaryQuantities() {
-        return new Object[][]{
-                {"0", "zero quantity"},
-                {"-1", " negative quantity"}
-        };
-    }
+
 
     @Test(priority = 2)
     public void testDecreaseBelowMinimumBlocked() {
         ProductPage productPage = goToProduct(PRODUCT);
-        // starting value is 1 (min="1"), so decreasing should either
-        // do nothing or be disabled — not go to 0
+        // starting value (min) is 1 , so decreasing should either
+        // do nothing or be disabled —> not go to 0
         productPage.clickDecreaseQuantity();
 
         Assert.assertEquals(productPage.getQuantityFieldValue(), "1",
@@ -79,8 +72,9 @@ public class ProductTests extends BaseTest {
 
         Assert.assertFalse(status.isEmpty(),
                 " stock/availability status not displayed");
+        System.out.println("Stock/availability status: " + status);
         // this product shows a delivery estimate ("2-3 Days") rather than
-        // "In Stock"/"Out of Stock" text - documenting actual behavior here.
+        // "In Stock"/"Out of Stock"
     }
 
 
@@ -91,7 +85,6 @@ public class ProductTests extends BaseTest {
         productPage.clickTab("Reviews");
         productPage.clickTab("Description");
         // If no exception is thrown, both tabs were clickable/present.
-        // Add isDisplayed() checks here once panel container ids are confirmed.
     }
 
 
@@ -107,6 +100,7 @@ public class ProductTests extends BaseTest {
         String warning = productPage.getReviewWarningText();
         Assert.assertTrue(warning.toLowerCase().contains("name"),
                 " expected a name-related warning, got: " + warning);
+
     }
 
 
@@ -126,13 +120,15 @@ public class ProductTests extends BaseTest {
 
         Assert.assertNotEquals(beforeCount, afterCount,
                 " review count did not increment after submitting a valid review ");
+        System.out.println("Review count before: " + beforeCount + ", after: " + afterCount);
     }
+
 
     @Test(priority = 9)
     public void productslist() {
         driver.get("https://ecommerce-playground.lambdatest.io/");
         HomePage homePage = new HomePage(driver);
-        ProductPage productPage = homePage.navigateToMegaMenuProduct(CATEGORY);
+        ProductPage productPage = homePage.navigateToMegaMenuProduct(CATEGORY);   // listing page
         Assert.assertTrue(productPage.isProductListDisplayed() , "Product list is not displayed");
     }
 }

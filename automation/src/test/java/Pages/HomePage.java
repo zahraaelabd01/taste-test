@@ -40,11 +40,13 @@ public class HomePage {
 
     public ProductPage navigateToMegaMenuProduct(String subPageName) {
         WebElement megaMenu = wait.until(ExpectedConditions.visibilityOfElementLocated(megaMenuLocator));
-        new Actions(driver).moveToElement(megaMenu).pause(Duration.ofMillis(300)).perform();
-
+        //   /\ This solves the problem of trying to interact with an element before the page has finished loading
+        new Actions(driver).moveToElement(megaMenu).pause(Duration.ofMillis(300)).perform();  // simulate hover with a slight pause to allow the menu to render
+     //simulate user input    moving mouse            waiting 300ms
         String dynamicXpath = String.format(
                 "//ul[contains(@class,'mega-menu-content')]//a[normalize-space()='%s']", subPageName);
-
+         //inside the <ul> element that contain mege-menu-content
+        // find <a> link whose visible text matches the name passed
         WebElement targetLink;
         try {
             targetLink = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(dynamicXpath)));

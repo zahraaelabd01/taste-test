@@ -25,7 +25,7 @@ public class ProductPage {
     By reviewCountText   = By.cssSelector(".total-review");
 
 
-    public ProductPage(WebDriver driver) {
+    public ProductPage(WebDriver driver) {   // constructor
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
@@ -41,13 +41,18 @@ public class ProductPage {
         wait.until(ExpectedConditions.elementToBeClickable(productLink)).click();
     }
 
+//    child:: → direct children only
+//    descendant:: → any element nested inside, at any depth
+//    parent:: → immediate parent only
+//    ancestor:: → any parent, grandparent, great-grandparent, etc. — all the way up to <html>
+//    following-sibling:: → elements after this one, same level
 
     private WebElement getVisibleQuantityContainer() {
-        List<WebElement> inputs = driver.findElements(By.cssSelector("input[aria-label='Qty']"));
+        List<WebElement> inputs = driver.findElements(By.cssSelector("input[aria-label='Qty']")); // will find 2 elements
         for (WebElement input : inputs) {
             if (input.isDisplayed()) {
                 return input.findElement(By.xpath("./ancestor::div[contains(@class,'input-group')][1]"));
-            }
+            }                                         //find the closest ancestor div with class input-group
         }
         throw new NoSuchElementException("No visible quantity input group found");
     }
