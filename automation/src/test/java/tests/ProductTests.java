@@ -24,6 +24,7 @@ public class ProductTests extends BaseTest {
     }
 
 
+
     @Test(priority = 1)
     public void testValidQuantityAccepted() {
         ProductPage productPage = goToProduct(PRODUCT);
@@ -126,4 +127,13 @@ public class ProductTests extends BaseTest {
         Assert.assertNotEquals(beforeCount, afterCount,
                 " review count did not increment after submitting a valid review (known bug)");
     }
+
+    @Test(priority = 10)
+    public void productslist() {
+        driver.get("https://ecommerce-playground.lambdatest.io/");
+        HomePage homePage = new HomePage(driver);
+        ProductPage productPage = homePage.navigateToMegaMenuProduct(CATEGORY);
+        Assert.assertTrue(productPage.isProductListDisplayed() , "Product list is not displayed");
+    }
 }
+
