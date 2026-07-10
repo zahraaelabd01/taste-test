@@ -16,23 +16,13 @@ public class ProductPage {
     // ---- Product detail page ----
     By addToCartButton = By.cssSelector("button[title='Add to Cart']");
     By buyNowButton    = By.cssSelector("button[title='Buy now']");
-    By compareButton   = By.cssSelector("button[onclick*='compare']");
-    By errorAlert      = By.cssSelector(".alert-dismissible, .text-danger");
     By stockStatus     = By.cssSelector(".badge.badge-danger");
-    By sizeDropdown    = By.cssSelector("select[name^='option']");
-
-    By tabDescription  = By.xpath("//a[contains(@class,'nav-link') and normalize-space()='Description']");
     By tabReviews        =By.xpath("//a[contains(@class,'nav-link') and normalize-space()='Reviews']");
-
     By reviewNameInput   = By.id("input-name");
     By reviewTextInput   = By.id("input-review");
     By reviewSubmitBtn   = By.id("button-review");
-    By reviewRatingRadios = By.cssSelector("input[name='rating']");
     By reviewWarning     = By.cssSelector(".alert-dismissible, .text-danger");
     By reviewCountText   = By.cssSelector(".total-review");
-
-    By increaseQtyButton = By.cssSelector("button[aria-label='Increase quantity']");
-    By decreaseQtyButton = By.cssSelector("button[aria-label='Decrease quantity']");
 
 
     public ProductPage(WebDriver driver) {
@@ -81,38 +71,19 @@ public class ProductPage {
         return container.findElement(By.cssSelector("input[aria-label='Qty']")).getAttribute("value");
     }
 
-    public void clickAddToCart() {
-        wait.until(ExpectedConditions.elementToBeClickable(addToCartButton)).click();
-    }
 
     public boolean isAddToCartEnabled() {
         return driver.findElement(addToCartButton).isEnabled();
-    }
-
-    public String getErrorMessageText() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(errorAlert)).getText();
-    }
-
-    public void clickBuyNow() {
-        wait.until(ExpectedConditions.elementToBeClickable(buyNowButton)).click();
     }
 
     public boolean isBuyNowEnabled() {
         return driver.findElement(buyNowButton).isEnabled();
     }
 
-    public void clickCompareIcon() {
-        wait.until(ExpectedConditions.elementToBeClickable(compareButton)).click();
-    }
-
     public String getStockStatusText() {
         return driver.findElement(stockStatus).getText();
     }
 
-    public boolean isSizeSelectorDisplayed() {
-        return !driver.findElements(sizeDropdown).isEmpty()
-                && driver.findElement(sizeDropdown).isDisplayed();
-    }
 
     // ---- Tabs ----
     public void clickTab(String tabName) {

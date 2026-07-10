@@ -54,7 +54,7 @@ public class ProductTests extends BaseTest {
                 " quantity went below the minimum of 1 when it shouldn't have");
     }
 
-    @Test(priority = 4)
+    @Test(priority = 3)
     public void testAddToCartButtonEnabled() {
         ProductPage productPage = goToProduct(PRODUCT);
 
@@ -63,7 +63,7 @@ public class ProductTests extends BaseTest {
     }
 
 
-    @Test(priority = 5)
+    @Test(priority = 4)
     public void testBuyNowButtonEnabled() {
         ProductPage productPage = goToProduct(PRODUCT);
 
@@ -72,7 +72,7 @@ public class ProductTests extends BaseTest {
     }
 
 
-    @Test(priority = 6)
+    @Test(priority = 5)
     public void testStockStatusDisplayed() {
         ProductPage productPage = goToProduct(PRODUCT);
         String status = productPage.getStockStatusText();
@@ -84,7 +84,7 @@ public class ProductTests extends BaseTest {
     }
 
 
-    @Test(priority = 7)
+    @Test(priority = 6)
     public void testTabSwitching() {
         ProductPage productPage = goToProduct(PRODUCT);
 
@@ -95,7 +95,7 @@ public class ProductTests extends BaseTest {
     }
 
 
-    @Test(priority = 8)
+    @Test(priority = 7)
     public void testReviewSubmitNoName() {
         ProductPage productPage = goToProduct(PRODUCT);
         productPage.openReviewsTab();
@@ -110,7 +110,7 @@ public class ProductTests extends BaseTest {
     }
 
 
-    @Test(priority = 9)
+    @Test(priority = 8)
     public void testReviewCountIncrements() {
         ProductPage productPage = goToProduct(PRODUCT);
         productPage.openReviewsTab();
@@ -128,7 +128,7 @@ public class ProductTests extends BaseTest {
                 " review count did not increment after submitting a valid review ");
     }
 
-    @Test(priority = 10)
+    @Test(priority = 9)
     public void productslist() {
         driver.get("https://ecommerce-playground.lambdatest.io/");
         HomePage homePage = new HomePage(driver);
