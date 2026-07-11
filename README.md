@@ -75,7 +75,7 @@ Taste&Test is a comprehensive Software Quality Assurance project designed to val
 | Manual Testing              |  Completed  |
 | API Testing                 |  Completed  |
 | Database Testing            |  Completed  |
-| Regression Automation Suite |  In Progress |
+| Regression Automation Suite |  Completed  |
 
 ---
 
