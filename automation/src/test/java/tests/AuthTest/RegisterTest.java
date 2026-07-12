@@ -15,9 +15,10 @@ public class RegisterTest extends BaseTest.BaseTest {
     }
     @Test(description = "TC_AUTH_001")
     public void validRegister(){
+        String email = "user" + System.currentTimeMillis() + "@test.com";
         registerPage.setFirstName("Test");
         registerPage.setLastName("One");
-        registerPage.setEmail("vorow61121118@parsitv.com");
+        registerPage.setEmail(email);
         registerPage.setTelephone("13802603245");
         registerPage.setPassword("1234");
         registerPage.setConfirmPassword("1234");
@@ -78,7 +79,7 @@ public class RegisterTest extends BaseTest.BaseTest {
         System.out.println("---Duplicate Email test pass---");
         System.out.println("************************");
     }
-    @Test (enabled = false, description = "TC_AUTH_003 - Bug:System accepts invalid data in registration fields")
+    @Test ( description = "TC_AUTH_003 - Bug:System accepts invalid data in registration fields")
     public void InvalidDataTypeTest() {
         registerPage.setFirstName("1234+4");
         registerPage.setLastName("h---abc");

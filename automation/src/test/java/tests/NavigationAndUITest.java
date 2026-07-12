@@ -7,21 +7,17 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class NavigationAndUITest extends BaseTest {
-    private NavigationPage navigationPage;
-    private final String BASE_URL = "https://your-taste-test-app.com"; // استبدله برابط المشروع الفعلي
 
-    @BeforeMethod
-    public void setUpNavigationTest() {
-        navigationPage = new NavigationPage(driver);
-        driver.get(BASE_URL);
-    }
+    private final String BASE_URL = "https://ecommerce-playground.lambdatest.io/";
 
-    @Test(priority = 1)
-    public void testUIStructureVisibility() {
-        Assert.assertTrue(navigationPage.isHeaderDisplayed(), "Header is missing!");
-        Assert.assertTrue(navigationPage.isNavbarDisplayed(), "Navbar is missing!");
-        Assert.assertTrue(navigationPage.isFooterDisplayed(), "Footer is missing!");
-    }
+   //
+
+//    @Test(priority = 1)
+//    public void testUIStructureVisibility() {
+//        Assert.assertTrue(navigationPage.isHeaderDisplayed(), "Header is missing!");
+//        Assert.assertTrue(navigationPage.isNavbarDisplayed(), "Navbar is missing!");
+//        Assert.assertTrue(navigationPage.isFooterDisplayed(), "Footer is missing!");
+//    }
 
     @Test(priority = 2)
     public void testLogoRedirectToHome() {

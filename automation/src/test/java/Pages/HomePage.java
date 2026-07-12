@@ -1,5 +1,4 @@
 package Pages;
-
 import Pages.Authentication.LoginPage;
 import Pages.Authentication.RegisterPage;
 import Pages.MyAccount.LogoutSuccessPage;
@@ -13,7 +12,7 @@ import java.time.Duration;
 
 public class HomePage {
     WebDriver driver;
-    private WebDriverWait wait;
+    WebDriverWait wait;
     By register = By.xpath("//a[contains(@href,\"account/register\")]");
     By MyAccount= By.xpath("//a[contains(@class, 'dropdown-toggle') and contains(., 'My account')]");
 

@@ -13,45 +13,24 @@ import java.time.Duration;
 public class CheckoutFlowTest extends BaseTest {
 
     private WebDriverWait wait;
-    private RegisterPageUser6 registerPage;
-
     @BeforeMethod
     public void setUp() {
         super.setUp();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(40));
-        registerPage = new RegisterPageUser6(driver);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
     @Test
     public void registerLoginAndCheckoutFlow() {
 
-        registerPage.openRegisterPage();
-
-        String email = "user" + System.currentTimeMillis() + "@test.com";
-        String password = "Test@12345";
-
-        registerPage.registerUser(
-                "Test",
-                "User",
-                email,
-                "01000000000",
-                password
-        );
-
-        driver.get("https://ecommerce-playground.lambdatest.io/index.php?route=account/login");
-
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("input-email"))).sendKeys(email);
-        driver.findElement(By.id("input-password")).sendKeys(password);
-        driver.findElement(By.cssSelector("input[type='submit']")).click();
-
+        myAccountPage=login();
         driver.get("https://ecommerce-playground.lambdatest.io/index.php?route=product/product&product_id=58");
 
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("button-cart"))).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id=\"entry_216842\"]/button"))).click();
 
         driver.get("https://ecommerce-playground.lambdatest.io/index.php?route=checkout/cart");
 
         wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//a[contains(@href,'checkout/checkout') or contains(text(),'Checkout')]")
+                By.xpath("//div[@class=\"buttons d-flex\"]/a[contains(@href,'checkout/checkout') or contains(text(),'Checkout')]")
         )).click();
 
         wait.until(d -> ((JavascriptExecutor) d)

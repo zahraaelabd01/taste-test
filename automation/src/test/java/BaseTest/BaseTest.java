@@ -29,7 +29,6 @@ public class BaseTest {
     protected ChangePasswordPage changePass;
     protected ForgottenPassPage forgottenPassPage;
     protected NavigationPage navigationPage;
-
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
         ChromeOptions options = new ChromeOptions();

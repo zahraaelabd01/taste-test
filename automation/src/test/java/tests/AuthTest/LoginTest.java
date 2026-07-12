@@ -20,6 +20,9 @@ public class LoginTest extends BaseTest {
         loginPage.setPassword("1234");
         System.out.println("Pass Done");
         myAccountPage=loginPage.LoginClick();
+        String AfterTitle = driver.getTitle();
+       // System.out.println(AfterTitle);
+        Assert.assertEquals( AfterTitle,"My Account");
         System.out.println("---Valid Login Test pass---");
         System.out.println("*******************************");
     }

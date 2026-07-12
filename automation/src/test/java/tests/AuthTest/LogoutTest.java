@@ -1,13 +1,9 @@
 package tests.AuthTest;
-
-import BaseTest.BaseTest;;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import BaseTest.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
 
 public class LogoutTest extends BaseTest {
 

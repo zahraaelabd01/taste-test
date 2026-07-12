@@ -23,7 +23,7 @@ public class RefreshPageTest extends BaseTest {
     public void setUp() {
         super.setUp();
         wait = new WebDriverWait(driver, Duration.ofSeconds(40));
-        registerPage = new RegisterPageUser6(driver);
+       // registerPage = new RegisterPageUser6(driver);
         cartPage = new CartPage(driver);
         homePage = new HomePage(driver);
     }
@@ -31,18 +31,20 @@ public class RefreshPageTest extends BaseTest {
     @Test
     public void fullCheckoutFlowThenRefresh() throws InterruptedException {
 
-        registerPage.openRegisterPage();
+        myAccountPage=login();
 
-        String email = "user" + System.currentTimeMillis() + "@test.com";
-        String password = "Test@12345";
+        //registerPage.openRegisterPage();
 
-        registerPage.registerUser(
-                "Test",
-                "User",
-                email,
-                "01000000000",
-                password
-        );
+        //String email = "user" + System.currentTimeMillis() + "@test.com";
+        //String password = "Test@12345";
+
+//        registerPage.registerUser(
+//                "Test",
+//                "User",
+//                email,
+//                "01000000000",
+//                password
+//        );
 
         driver.get("https://ecommerce-playground.lambdatest.io/index.php?route=product/product&product_id=58");
 
