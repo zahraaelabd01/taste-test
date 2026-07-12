@@ -28,6 +28,7 @@ public class BaseTest {
     protected EditAccountPage editAccountPage;
     protected ChangePasswordPage changePass;
     protected ForgottenPassPage forgottenPassPage;
+    protected NavigationPage navigationPage;
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
@@ -40,6 +41,7 @@ public class BaseTest {
         driver.get("https://ecommerce-playground.lambdatest.io/");
         homePage=new HomePage(driver);
         cartPage=new CartPage(driver);
+        navigationPage = new NavigationPage(driver);
     }
 
    @AfterMethod(alwaysRun = true)
